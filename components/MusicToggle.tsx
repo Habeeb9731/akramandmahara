@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-const SONG_URL = "/sound/akandmhsong.mp3";
+const SONG_URL = "/sound/akandmhsong-v2.mp3";
 
 /**
  * Floating background-music toggle. The couple's song from /public/sound
