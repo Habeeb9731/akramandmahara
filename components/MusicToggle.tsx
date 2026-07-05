@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 const SONG_URL = "/sound/akandmhsong.mp3";
 
 /**
- * Floating background-music toggle. Muted by default.
- * Plays the couple's song from /public/sound; if the file is ever missing,
- * a soft santoor-like Web Audio ambience takes over as a fallback.
+ * Floating background-music toggle. The couple's song from /public/sound
+ * starts automatically (with a gentle fade-in) when the guest taps the
+ * envelope seal, and this button mutes / resumes it. If the file is ever
+ * missing, a soft santoor-like Web Audio ambience takes over as a fallback.
  */
 export default function MusicToggle() {
   const [playing, setPlaying] = useState(false);
@@ -18,7 +19,32 @@ export default function MusicToggle() {
   const useFileRef = useRef<boolean | null>(null);
 
   useEffect(() => {
+    // Fired synchronously from the envelope tap, so play() still carries the
+    // user gesture and audible autoplay is allowed on mobile browsers.
+    const autoStart = () => {
+      if (audioElRef.current || nodesRef.current) return;
+      const el = new Audio(SONG_URL);
+      el.loop = true;
+      el.volume = 0;
+      audioElRef.current = el;
+      useFileRef.current = true;
+      el.play()
+        .then(() => {
+          setPlaying(true);
+          const fade = setInterval(() => {
+            el.volume = Math.min(0.55, el.volume + 0.028);
+            if (el.volume >= 0.55 || el.paused) clearInterval(fade);
+          }, 100);
+        })
+        .catch(() => {
+          // blocked or file missing — stay muted; the toggle still works
+          audioElRef.current = null;
+          useFileRef.current = null;
+        });
+    };
+    window.addEventListener("invite-clicked", autoStart);
     return () => {
+      window.removeEventListener("invite-clicked", autoStart);
       nodesRef.current?.stop();
       ctxRef.current?.close().catch(() => {});
       audioElRef.current?.pause();
@@ -136,8 +162,8 @@ export default function MusicToggle() {
       if (!audioElRef.current) {
         audioElRef.current = new Audio(SONG_URL);
         audioElRef.current.loop = true;
-        audioElRef.current.volume = 0.55;
       }
+      audioElRef.current.volume = 0.55;
       await audioElRef.current.play().catch(() => {});
     } else {
       startSynth();

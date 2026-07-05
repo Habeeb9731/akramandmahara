@@ -23,6 +23,8 @@ export default function Preloader() {
   const open = () => {
     if (phase !== "sealed") return;
     setPhase("opening");
+    // synchronous with the tap so audio playback keeps the user-gesture grant
+    window.dispatchEvent(new Event("invite-clicked"));
     // let the hero begin its entrance as the overlay starts dissolving
     setTimeout(() => {
       (window as unknown as { __inviteOpened?: boolean }).__inviteOpened = true;
