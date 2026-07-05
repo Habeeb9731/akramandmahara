@@ -171,7 +171,7 @@ export default function Timeline() {
     <section className="relative py-28 sm:py-36" aria-label="Wedding events timeline">
       {/* ornate emerald backdrop stays pinned while the cards scroll past */}
       <div className="absolute inset-0" aria-hidden>
-        <div className="sticky top-0 h-screen w-full">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
           <Image
             src="/backgrounds/timeline-v2.png"
             alt=""
@@ -183,7 +183,7 @@ export default function Timeline() {
         </div>
       </div>
       {/* seamless blends into the neighbouring sections */}
-      <div className="pointer-events-none absolute inset-x-0 -top-2 z-[1] h-60 bg-gradient-to-b from-[#0b0805] from-12% via-[#0b0805]/60 to-transparent" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 -top-2 z-[1] h-80 bg-gradient-to-b from-black from-18% via-black/60 to-transparent" aria-hidden />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32 bg-gradient-to-t from-[#050c18] to-transparent" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">

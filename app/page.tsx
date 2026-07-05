@@ -23,6 +23,11 @@ export default function Home() {
       <main>
         <Hero />
         <QuranVerse />
+        {/* dark breathing space — dissolves into the sections above & below */}
+        <div
+          aria-hidden
+          className="h-44 bg-gradient-to-b from-[#0b0805] to-black sm:h-60"
+        />
         <Timeline />
         <Countdown />
         <Blessings />
