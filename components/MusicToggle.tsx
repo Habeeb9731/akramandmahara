@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
+const SONG_URL = "/sound/akandmhsong.mp3";
+
 /**
  * Floating background-music toggle. Muted by default.
- * The ambience is synthesised with the Web Audio API — a soft santoor-like
- * pentatonic melody over a warm drone, so no audio file is required.
- * Drop a real track at /public/audio/ambience.mp3 later and it will be
- * preferred automatically.
+ * Plays the couple's song from /public/sound; if the file is ever missing,
+ * a soft santoor-like Web Audio ambience takes over as a fallback.
  */
 export default function MusicToggle() {
   const [playing, setPlaying] = useState(false);
@@ -122,10 +122,9 @@ export default function MusicToggle() {
       return;
     }
 
-    // Prefer a real ambience file if one has been added to /public/audio.
     if (useFileRef.current === null) {
       try {
-        const res = await fetch("/audio/ambience.mp3", { method: "HEAD" });
+        const res = await fetch(SONG_URL, { method: "HEAD" });
         useFileRef.current =
           res.ok && (res.headers.get("content-type") ?? "").includes("audio");
       } catch {
@@ -135,7 +134,7 @@ export default function MusicToggle() {
 
     if (useFileRef.current) {
       if (!audioElRef.current) {
-        audioElRef.current = new Audio("/audio/ambience.mp3");
+        audioElRef.current = new Audio(SONG_URL);
         audioElRef.current.loop = true;
         audioElRef.current.volume = 0.55;
       }
