@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function QuranVerse() {
   return (
     <section
-      className="relative overflow-hidden py-32 sm:py-44"
+      className="relative overflow-hidden pb-24 pt-32 sm:pb-32 sm:pt-44"
       aria-label="Quran verse"
     >
       {/* candlelit night hall */}

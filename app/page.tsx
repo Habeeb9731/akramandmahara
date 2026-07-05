@@ -26,7 +26,7 @@ export default function Home() {
         {/* dark breathing space — dissolves into the sections above & below */}
         <div
           aria-hidden
-          className="h-44 bg-gradient-to-b from-[#0b0805] to-black sm:h-60"
+          className="h-14 bg-gradient-to-b from-[#0b0805] to-black sm:h-20"
         />
         <Timeline />
         <Countdown />
