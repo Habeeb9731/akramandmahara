@@ -69,9 +69,8 @@ const icons = {
   ),
 };
 
-function TimelineCard({ event, index }: { event: WeddingEvent; index: number }) {
+function TimelineCard({ event }: { event: WeddingEvent }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const left = index % 2 === 0;
 
   const onMove = (e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -86,22 +85,13 @@ function TimelineCard({ event, index }: { event: WeddingEvent; index: number }) 
   };
 
   return (
-    <div className={`relative flex w-full ${left ? "md:justify-start" : "md:justify-end"} justify-start`}>
-      {/* node on the spine */}
-      <span
-        className="absolute left-[18px] top-10 z-[2] flex h-4 w-4 -translate-x-1/2 items-center justify-center md:left-1/2"
-        aria-hidden
-      >
-        <span className="animate-glow-pulse absolute h-6 w-6 rounded-full bg-gold/25" />
-        <span className="h-3 w-3 rotate-45 border border-gold-light bg-gold shadow-[0_0_14px_rgba(212,175,55,0.9)]" />
-      </span>
-
+    <div className="relative flex w-full justify-center">
       <motion.div
-        initial={{ opacity: 0, y: 60, x: left ? -40 : 40, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
+        initial={{ opacity: 0, y: 60, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className={`ml-12 w-[calc(100%-3rem)] max-w-[460px] md:ml-0 md:w-[calc(50%-3.5rem)] ${left ? "" : "md:ml-auto"}`}
+        className="w-full max-w-[460px]"
       >
         <div
           ref={cardRef}
@@ -168,7 +158,7 @@ function TimelineCard({ event, index }: { event: WeddingEvent; index: number }) 
 
 export default function Timeline() {
   return (
-    <section className="relative py-28 sm:py-36" aria-label="Wedding events timeline">
+    <section className="relative pb-28 pt-14 sm:pb-36 sm:pt-16" aria-label="Wedding events timeline">
       {/* ornate emerald backdrop stays pinned while the cards scroll past */}
       <div className="absolute inset-0" aria-hidden>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -186,24 +176,19 @@ export default function Timeline() {
       <div className="pointer-events-none absolute inset-x-0 -top-2 z-[1] h-80 bg-gradient-to-b from-black from-18% via-black/60 to-transparent" aria-hidden />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32 bg-gradient-to-t from-[#050c18] to-transparent" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <header data-reveal className="mb-20 text-center">
-          <span className="font-[family-name:var(--font-script)] text-3xl text-gold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-4xl">
+      <div className="relative z-[2] mx-auto max-w-6xl px-5 sm:px-8">
+        <header data-reveal className="mb-16 text-center sm:mb-20">
+          <span className="font-[family-name:var(--font-script)] text-4xl text-gold-light drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] sm:text-5xl">
             The Celebrations
           </span>
-          <h2 className="mt-4 font-[family-name:var(--font-heading)] text-3xl font-light text-ivory drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-4xl">
+          <h2 className="mt-4 font-[family-name:var(--font-heading)] text-3xl font-normal text-ivory drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] sm:text-4xl">
             Four days of joy, faith &amp; festivity
           </h2>
         </header>
 
         <div className="relative flex flex-col gap-16 md:gap-24">
-          {/* golden spine */}
-          <span
-            className="absolute bottom-0 left-[18px] top-0 w-px bg-gradient-to-b from-transparent via-gold/50 to-transparent md:left-1/2"
-            aria-hidden
-          />
-          {events.map((event, i) => (
-            <TimelineCard key={event.id} event={event} index={i} />
+          {events.map((event) => (
+            <TimelineCard key={event.id} event={event} />
           ))}
         </div>
       </div>
