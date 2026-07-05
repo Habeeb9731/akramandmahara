@@ -8,6 +8,9 @@ export type WeddingEvent = {
   date: string;
   day: string;
   time: string;
+  /** machine-readable start, used by the Add-to-Calendar button */
+  startISO: string;
+  durationHours: number;
   venue: string;
   venueLine2?: string;
   mapsUrl: string;
@@ -27,6 +30,8 @@ export const events: WeddingEvent[] = [
     date: "31 July 2026",
     day: "Friday",
     time: "2:00 PM",
+    startISO: "2026-07-31T14:00:00+05:30",
+    durationHours: 4,
     venue: "AR Garden",
     venueLine2: "Kumbra, Puttur",
     mapsUrl: "https://maps.google.com/?q=P69F%2BPG5+Puttur+Karnataka",
@@ -42,6 +47,8 @@ export const events: WeddingEvent[] = [
     date: "01 August 2026",
     day: "Saturday",
     time: "11:30 AM",
+    startISO: "2026-08-01T11:30:00+05:30",
+    durationHours: 3,
     venue: "Indian Auditorium",
     venueLine2: "Nerlakatte, Mani",
     mapsUrl: "https://maps.google.com/?q=R49M%2BJ4V+Peraje",
@@ -57,6 +64,8 @@ export const events: WeddingEvent[] = [
     date: "02 August 2026",
     day: "Sunday",
     time: "7:00 PM",
+    startISO: "2026-08-02T19:00:00+05:30",
+    durationHours: 3,
     venue: "AR Garden",
     venueLine2: "Kumbra",
     mapsUrl: "https://maps.google.com/?q=P69F%2BPG5+Puttur+Karnataka",
@@ -72,6 +81,8 @@ export const events: WeddingEvent[] = [
     date: "03 August 2026",
     day: "Monday",
     time: "7:00 PM",
+    startISO: "2026-08-03T19:00:00+05:30",
+    durationHours: 3,
     venue: "St. Sebastian Centenary Auditorium",
     venueLine2: "Bendur, Mangaluru",
     mapsUrl: "https://maps.google.com/?q=VVG5%2B976+Mallikatte+Bendoor",
